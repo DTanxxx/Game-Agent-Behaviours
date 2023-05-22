@@ -1,0 +1,59 @@
+﻿using UnityEngine;
+using UnityEditor;
+using System.Collections;
+using System.Collections.Generic;
+
+[CustomEditor(typeof(GAgentVisual))]
+[CanEditMultipleObjects]
+public class GAgentVisualEditor : Editor 
+{
+
+
+    void OnEnable()
+    {
+
+    }
+
+    public override void OnInspectorGUI()
+    {
+        DrawDefaultInspector();
+        serializedObject.Update();
+        GAgentVisual agent = (GAgentVisual) target;
+        GUILayout.Label("Name: " + agent.name);
+        GUILayout.Label("Current Action: " + agent.gameObject.GetComponent<GameAgent>().currentAction);
+        GUILayout.Label("Actions: ");
+        foreach (GameAction a in agent.gameObject.GetComponent<GameAgent>().actions)
+        {
+            string pre = "";
+            string eff = "";
+
+            foreach (KeyValuePair<string, int> p in a.preconditions)
+                pre += p.Key + ", ";
+            foreach (KeyValuePair<string, int> e in a.effects)
+                eff += e.Key + ", ";
+
+            GUILayout.Label("====  " + a.actionName + "(" + pre + ")(" + eff + ")");
+        }
+        GUILayout.Label("Goals: ");
+        foreach (KeyValuePair<SubGoal, int> g in agent.gameObject.GetComponent<GameAgent>().goals)
+        {
+            GUILayout.Label("---: ");
+            foreach (KeyValuePair<string, int> sg in g.Key.subgoals)
+                GUILayout.Label("=====  " + sg.Key);
+        }
+        GUILayout.Label("Beliefs: ");
+        foreach (KeyValuePair<string, int> sg in agent.gameObject.GetComponent<GameAgent>().beliefs.GetStates())
+        {
+                GUILayout.Label("=====  " + sg.Key);
+        }
+
+        GUILayout.Label("Inventory: ");
+        foreach (GameObject g in agent.gameObject.GetComponent<GameAgent>().inventory.items)
+        {
+            GUILayout.Label("====  " + g.tag);
+        }
+
+
+        serializedObject.ApplyModifiedProperties();
+    }
+}
