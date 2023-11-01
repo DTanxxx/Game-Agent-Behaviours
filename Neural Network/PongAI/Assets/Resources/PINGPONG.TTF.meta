@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 0aa96a826c07148bbb1320e14f05a31e
+timeCreated: 1513309763
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: PingPong
+  fontNames:
+  - PingPong
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
